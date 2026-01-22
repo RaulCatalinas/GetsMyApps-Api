@@ -9,10 +9,8 @@ import express from 'express'
 
 const app = express()
 
-app.use('/api', appsRouter)
+app.use(appsRouter)
 
 app.listen(PORT ?? DEFAULT_PORT, () => {
-  console.log(
-    `📡 API available at http://localhost:${PORT ?? DEFAULT_PORT}/api`
-  )
+  console.log(`📡 API available at http://localhost:${PORT ?? DEFAULT_PORT}`)
 })
