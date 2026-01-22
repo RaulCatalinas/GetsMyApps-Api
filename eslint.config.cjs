@@ -24,7 +24,7 @@ module.exports = (async function config() {
         '@typescript-eslint/no-unsafe-return': 'off',
         '@typescript-eslint/no-magic-numbers': 'off',
         '@typescript-eslint/no-unsafe-assignment': 'off',
-        'eslint-comments/require-description': 'off',
+        '@eslint-community/eslint-comments/require-description': 'off',
         'no-console': 'off',
         'prettier/prettier': 'error'
       }
