@@ -1,19 +1,16 @@
-import { sql } from 'drizzle-orm'
-import {
-  blob,
-  integer,
-  numeric,
-  sqliteTable,
-  text
-} from 'drizzle-orm/sqlite-core'
+import { blob, integer, sqliteTable, text } from 'drizzle-orm/sqlite-core'
 
-export const apps = sqliteTable('Apps', {
+export const appsSchema = sqliteTable('Apps', {
   id: integer().primaryKey({ autoIncrement: true }),
-  name: text(),
-  alternativeText: text(),
-  githubRepoName: text(),
-  osArray: blob(),
-  descriptions: blob(),
+  name: text().notNull(),
+  alternativeText: text().notNull(),
+  githubRepoName: text().notNull(),
+  osArray: blob({ mode: 'json' }).$type<string[]>().notNull(),
+  descriptions: blob({ mode: 'json' })
+    .$type<{ en: string; es: string }>()
+    .notNull(),
   logoUrl: text(),
-  inDevelopment: numeric('in_development').default(sql`(TRUE)`)
+  inDevelopment: integer('in_development', { mode: 'boolean' })
+    .default(true)
+    .notNull()
 })
