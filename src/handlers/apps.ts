@@ -1,7 +1,7 @@
 // DB
 import { eq } from 'drizzle-orm'
 import { db } from '../db/client'
-import { appsSchema, updateAppSchema } from '../db/schema'
+import { appsSchema, insertAppSchema, updateAppSchema } from '../db/schema'
 
 // Third-Party libraries
 import type { Request, Response } from 'express'
@@ -37,6 +37,29 @@ export async function handleGetAppByIdRoute(req: Request, res: Response) {
     console.error('Error fetching app by ID: ', error)
 
     return res.send(500).json({ error: 'Failed to fetch app' })
+  }
+}
+
+export async function handleCreateAppRoute(req: Request, res: Response) {
+  try {
+    const appData = insertAppSchema.safeParse(req.body)
+
+    if (!appData.success) {
+      console.error('Error updating app: ', appData.error)
+
+      return res.status(400).json({
+        error: 'Invalid app data',
+        details: appData.error.message
+      })
+    }
+
+    const newApp = await db.insert(appsSchema).values(appData.data).returning()
+
+    return res.status(201).json(newApp[0])
+  } catch (error) {
+    console.error('Error creating app: ', error)
+
+    return res.status(500).json({ error: 'Failed to create app' })
   }
 }
 

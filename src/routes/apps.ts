@@ -1,5 +1,6 @@
 // Handlers
 import {
+  handleCreateAppRoute,
   handleGetAppByIdRoute,
   handleIndexRoute,
   handleUpdateAppRoute
@@ -12,6 +13,7 @@ const router = Router()
 
 router.get('/', handleIndexRoute)
 router.get('/:id', handleGetAppByIdRoute)
+router.post('/', handleCreateAppRoute)
 router.put('/:id', handleUpdateAppRoute)
 
 export default router
