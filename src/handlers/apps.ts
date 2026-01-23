@@ -10,7 +10,7 @@ export async function handleIndexRoute(_: Request, res: Response) {
   try {
     const apps = await db.select().from(appsSchema)
 
-    return res.json(apps)
+    return res.status(200).json(apps)
   } catch (error) {
     console.error('Error fetching apps: ', error)
 
@@ -32,7 +32,7 @@ export async function handleGetAppByIdRoute(req: Request, res: Response) {
       return res.status(404).json({ error: 'App not found' })
     }
 
-    return res.json(app[0])
+    return res.status(200).json(app[0])
   } catch (error) {
     console.error('Error fetching app by ID: ', error)
 
@@ -96,5 +96,27 @@ export async function handleUpdateAppRoute(req: Request, res: Response) {
     console.error('Error creating app: ', error)
 
     return res.status(500).json({ error: 'Failed to update app' })
+  }
+}
+
+export async function handleDeleteAppByIdRoute(req: Request, res: Response) {
+  try {
+    const id = Number(req.params.id)
+
+    if (Number.isNaN(id)) {
+      return res.status(400).json({ error: 'ID must be a valid number' })
+    }
+
+    const app = await db.delete(appsSchema).where(eq(appsSchema.id, id))
+
+    if (app.rowsAffected === 0) {
+      return res.status(404).json({ error: 'App not found' })
+    }
+
+    return res.status(200).json({ message: 'App deleted successfully' })
+  } catch (error) {
+    console.error('Error deleting app:', error)
+
+    return res.status(500).json({ error: 'Failed to delete app' })
   }
 }
