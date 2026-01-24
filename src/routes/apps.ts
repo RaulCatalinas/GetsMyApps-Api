@@ -7,6 +7,9 @@ import {
   handleUpdateAppRoute
 } from '../handlers/apps'
 
+// Middlewares
+import { requireAuth } from '../middlewares/auth'
+
 // Third-Party libraries
 import { Router } from 'express'
 
@@ -14,9 +17,10 @@ const router = Router()
 
 router.get('/', handleIndexRoute)
 router.get('/:id', handleGetAppByIdRoute)
-router.post('/', handleCreateAppRoute)
-router.put('/:id', handleUpdateAppRoute)
-// eslint-disable-next-line drizzle/enforce-delete-with-where
-router.delete('/:id', handleDeleteAppByIdRoute)
+
+// Protected routes
+router.post('/', requireAuth, handleCreateAppRoute)
+router.put('/:id', requireAuth, handleUpdateAppRoute)
+router.delete('/:id', requireAuth, handleDeleteAppByIdRoute)
 
 export default router

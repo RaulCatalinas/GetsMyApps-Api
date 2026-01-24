@@ -17,7 +17,7 @@ module.exports = (async function config() {
       files: ['**/*.ts']
     },
     {
-      files: ['**/*.ts'],
+      files: ['**/handlers/*.ts'],
       plugins: {
         drizzle: drizzlePlugin
       },
