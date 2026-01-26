@@ -11,7 +11,18 @@ export const appsSchema = sqliteTable('Apps', {
     .$type<{ en: string; es: string }>()
     .notNull(),
   logoUrl: text(),
-  inDevelopment: integer('in_development', { mode: 'boolean' }).default(true)
+  inDevelopment: integer('in_development', { mode: 'boolean' })
+    .notNull()
+    .default(true),
+  downloadUrls: blob({ mode: 'json' })
+    .$type<{
+      windows?: string
+      macos?: string
+      linux?: string
+      android?: string
+      ios?: string
+    }>()
+    .default({})
 })
 
 export const insertAppSchema = createInsertSchema(appsSchema)
