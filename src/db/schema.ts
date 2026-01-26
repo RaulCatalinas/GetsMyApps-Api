@@ -16,13 +16,19 @@ export const appsSchema = sqliteTable('Apps', {
     .notNull(),
   downloadUrls: blob('download_urls', { mode: 'json' })
     .$type<{
-      windows?: string
-      macos?: string
-      linux?: string
-      android?: string
-      ios?: string
+      windows: string | null
+      macos: string | null
+      linux: string | null
+      android: string | null
+      ios: string | null
     }>()
-    .default({}),
+    .default({
+      windows: null,
+      macos: null,
+      linux: null,
+      android: null,
+      ios: null
+    }),
   isFeatured: integer('is_featured', { mode: 'boolean' })
     .default(false)
     .notNull()
