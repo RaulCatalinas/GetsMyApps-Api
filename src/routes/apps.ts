@@ -2,6 +2,7 @@
 import {
   handleCreateAppRoute,
   handleDeleteAppByIdRoute,
+  handleFeaturedRoute,
   handleGetAppByIdRoute,
   handleIndexRoute,
   handleUpdateAppRoute
@@ -16,6 +17,7 @@ import { Router } from 'express'
 const router = Router()
 
 router.get('/', handleIndexRoute)
+router.get('/featured', handleFeaturedRoute)
 router.get('/:id', handleGetAppByIdRoute)
 
 // Protected routes

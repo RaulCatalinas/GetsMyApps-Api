@@ -18,6 +18,21 @@ export async function handleIndexRoute(_: Request, res: Response) {
   }
 }
 
+export async function handleFeaturedRoute(_: Request, res: Response) {
+  try {
+    const apps = await db
+      .select()
+      .from(appsSchema)
+      .where(eq(appsSchema.isFeatured, true))
+
+    return res.status(200).json(apps)
+  } catch (error) {
+    console.error('Error fetching featured apps: ', error)
+
+    return res.status(500).json({ error: 'Failed to fetch featured apps' })
+  }
+}
+
 export async function handleGetAppByIdRoute(req: Request, res: Response) {
   try {
     const id = Number(req.params.id)
