@@ -31,6 +31,10 @@ export const appsSchema = sqliteTable('Apps', {
     }),
   isFeatured: integer('is_featured', { mode: 'boolean' })
     .default(false)
+    .notNull(),
+  technologies: blob({ mode: 'json' }).$type<string[]>().notNull(),
+  osIconsUrls: blob('os_icons_urls', { mode: 'json' })
+    .$type<string[]>()
     .notNull()
 })
 
