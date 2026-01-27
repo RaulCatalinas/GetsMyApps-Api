@@ -4,7 +4,7 @@ import { createInsertSchema, createUpdateSchema } from 'drizzle-zod'
 export const appsSchema = sqliteTable('Apps', {
   id: integer().primaryKey({ autoIncrement: true }),
   name: text().notNull(),
-  githubRepoUrl: text('url').notNull(),
+  githubRepoUrl: text('github_repo_url').notNull(),
   osArray: blob('os_array', { mode: 'json' }).$type<string[]>().notNull(),
   descriptions: blob({ mode: 'json' })
     .$type<{ en: string; es: string }>()
