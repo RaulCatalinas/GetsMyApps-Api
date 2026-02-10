@@ -36,3 +36,5 @@ require (
 	golang.org/x/text v0.33.0 // indirect
 	google.golang.org/protobuf v1.36.8 // indirect
 )
+
+tool github.com/air-verse/air
